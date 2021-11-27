@@ -1,0 +1,25 @@
+<div class="content" style="text-align: center;">
+
+
+    <mat-card class="mat-elevation-z4">
+
+        <h1 style="background-color:rgb(206, 151, 223) ;">Approve Loan</h1>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>LOAN ID</mat-label>
+                <input matInput placeholder="Enter loanid" placeholder="loanid" name="loanid" [(ngModel)]="loanid"
+                    required="required">
+            </mat-form-field>
+        </form>
+        <br />
+
+        <br />
+        <div style="text-align: center;">
+            <button class="btnClass" type="submit" (click)="loandId()" mat-raised-button color="primary">
+                Submit
+            </button>
+            <br />
+            <br />
+        </div>
+    </mat-card>
+</div>

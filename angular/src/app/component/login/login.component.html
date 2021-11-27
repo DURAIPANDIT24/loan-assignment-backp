@@ -1,0 +1,32 @@
+<div class="box-width">
+    <mat-toolbar color="primary">
+        <span class="title-center">LOGIN</span>
+    </mat-toolbar>
+
+    <div class="content">
+        <mat-card class="mat-elevation-z4">
+            <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm)">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="Enter UserName" placeholder="Username" name="username" required="required" ngModel />
+                </mat-form-field>
+                <br />
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" placeholder="Enter Password" name="password" type="password" required="required" ngModel />
+                </mat-form-field>
+                <br />
+                <div style="text-align: center">
+                    <button class="btnClass" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">
+            Login
+          </button>
+                    <br />
+                    <br />
+                    <p class="message">
+                        Not registered? <a (click)="gotosignup()">Create an account</a>
+                    </p>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

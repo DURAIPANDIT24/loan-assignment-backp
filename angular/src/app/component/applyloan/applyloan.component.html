@@ -1,0 +1,139 @@
+<div class="card" style="width: 60rem;">
+    <h5 class="card-header text-center">Apply New Loan</h5>
+    <div class="card-body" style="width: 50rem;">
+        <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Customer ID:</mat-label>
+                        <input matInput type="text" formControlName="customerId" />
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Loan Amount</mat-label>
+                        <input matInput type="text" (keypress)="keyPressNumbers($event)" formControlName="loanAmount" />
+                        <mat-error *ngIf="submitted && f.loanAmount.errors">
+                            <div *ngIf="f.loanAmount.errors.required" class="error-style">
+                                Loan Amount is required
+                            </div>
+                            <div *ngIf="f.loanAmount.errors.max || f.loanAmount.errors.min" class="error-style">
+                                Entered value within the range(1000-10000000)
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Trade Date:</mat-label>
+                        <input matInput type="date" formControlName="tradeDate" min="{{ minDate }}" />
+                        <mat-error *ngIf="submitted && f.tradeDate.errors">
+                            <div *ngIf="f.tradeDate.errors.required" class="error-style">
+                                Trade Date is required
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Start Date:</mat-label>
+                        <input matInput type="date" formControlName="startDate" min="{{ maxDate }}" />
+                        <mat-error *ngIf="submitted && f.startDate.errors">
+                            <div *ngIf="f.startDate.errors.required" class="error-style">
+                                Start Date is required
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Loan Duration in Years:</mat-label>
+                        <input type="number" matInput name="loanDuration" id="loanDurationInputId" formControlName="loanDuration" value="0" min="0" max="30" oninput="durationOutputId.value = loanDurationInputId.value" (change)="setMaturityDate($event)" />
+
+                        <mat-error *ngIf="submitted && f.loanDuration.errors">
+                            <div *ngIf="f.loanDuration.errors.required" class="error-style">
+                                Select Loan Duration
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Maturity Date:</mat-label>
+                        <input matInput type="date" formControlName="maturityDate" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Interest Rate(in %):</mat-label>
+                        <input matInput type="text" (keypress)="keyPressNumbers($event)" formControlName="interestRate" (change)="setPaymentInterest($event)" />
+                        <mat-error *ngIf="submitted && f.interestRate.errors">
+                            <div *ngIf="f.interestRate.errors.required" class="error-style">
+                                Interest Rate is required
+                            </div>
+                            <div *ngIf="f.interestRate.errors.max || f.interestRate.errors.min" class="error-style">
+                                Entered value within the range(1-100)
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm mb-3">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Payment Frequency:</mat-label>
+                        <select matNativeControl formControlName="paymentFrequency" (change)="calculatepaymentSchedule($event)">
+              <option value="" disabled selected>Select your option</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Half Yearly">Half Yearly</option>
+              <option value="Yearly">Yearly</option>
+            </select>
+                        <mat-error *ngIf="submitted && f.paymentFrequency.errors">
+                            <div *ngIf="f.paymentFrequency.errors.required" class="error-style">
+                                Payment Frequency is required
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Payment Schedule:</mat-label>
+                        <input type="text" matInput (keypress)="keyPressNumbers($event)" formControlName="paymentSchedule" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm mb-3">
+                    <mat-form-field class="full-width" class="example-full-width" appearance="outline">
+                        <mat-label>Payment Term:</mat-label>
+
+                        <select matNativeControl formControlName="paymentTerm" (change)="calculateprojectedInterest($event)">
+              <option value="" disabled selected>Select your option</option>
+              <option value="Interest Only">Interest Only</option>
+              <option value="Even Principal">Even Principal</option>
+            </select>
+                        <mat-error *ngIf="submitted && f.paymentTerm.errors">
+                            <div *ngIf="f.paymentTerm.errors.required" class="error-style">
+                                Payment Term is required
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field class="full-width" class="example-full-width" appearance="outline">
+                        <mat-label>Projected interest :</mat-label>
+                        <input matInput type="text" (keypress)="keyPressNumbers($event)" formControlName="projectedInterest" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button class="btn btn-primary text-center" mat-raised-button color="accent" style="margin: 8px;">
+          Apply
+        </button>
+            </div>
+        </form>
+    </div>
+</div>

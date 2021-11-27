@@ -1,0 +1,38 @@
+<!--
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#0d6efd;">
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+       <div class="navbar-nav " style=" color: white;">
+        <a  *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button  class="nav-item nav-link active text-white " >Finzly Loan App</a>
+         <a  *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button routerLink="home" class="nav-item nav-link active text-white " >Home </a>
+         <a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button routerLink="applyloan" class="nav-item nav-link text-white" >Apply Loan</a>
+         <a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button routerLink="customerdetails" class="nav-item nav-link text-white ">Personal Details</a>
+       </div>
+     </div>
+     <button *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button class="btn btn-outline-primary my-2 my-sm-0 text-white" (click)="logout()">Logout</button>
+     <button *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button class="btn btn-outline-primary my-2 my-sm-0 text-white" routerLink="login">Login</button>
+     <button *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()" mat-raised-button class="btn btn-outline-primary my-2 my-sm-0 text-white" routerLink="signup">Signup</button>
+   </nav>
+ -->
+ <mat-toolbar color="primary">
+
+  <span  mat-raised-button  *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()" class="defect"> Finzly Loan App</span>
+
+  <a  *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-button color="accent"  routerLink="home" class="nav-item nav-link active  " >Home </a>
+  <a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-button color="accent" routerLink="applyloan" class="nav-item nav-link ">Apply Loan</a>
+  <a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()" mat-button color="accent" routerLink="customerdetails" class="nav-item nav-link" >Personal Details </a>
+  <span class="space"></span>
+
+
+
+  <div class="align-self-center">
+
+      <a *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()" mat-button color="accent"  routerLink = "signup" class=" nav-item nav-link mr10 ml20">Signup</a>
+      <a *ngIf="hardcodedAuthenticationService.isUserLoggedIn()"  mat-button color="accent" (click)="logout()" class="nav-item nav-link mr10 ml20">Logout</a>
+       <a *ngIf="!hardcodedAuthenticationService.isUserLoggedIn()"  mat-button color="accent"  routerLink = "login" class="nav-item nav-link mr10 ml20">Login</a>
+  </div>
+
+</mat-toolbar>
+
